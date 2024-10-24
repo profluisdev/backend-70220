@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const userCollection = "users";
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -18,3 +18,4 @@ const userSchema = mongoose.Schema({
 });
 
 export const userModel = mongoose.model(userCollection, userSchema);
+
