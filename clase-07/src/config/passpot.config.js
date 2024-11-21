@@ -7,6 +7,7 @@ import { createHash, isValidPassword } from "../utils/hashPassword.js";
 import { cookieExtractor } from "../utils/cookieExtractor.js";
 import { createToken } from "../utils/jwt.js";
 import { cartDao } from "../dao/mongo/cart.dao.js";
+import envsConfig from "./envs.config.js";
 
 const LocalStrategy = local.Strategy;
 const GoogleStrategy = google.Strategy;
@@ -104,8 +105,8 @@ export const initializePassport = () => {
     "google",
     new GoogleStrategy(
       {
-        clientID: "fds",
-        clientSecret: "dfs",
+        clientID: envsConfig.GOOGLE_CLIENT_ID,
+        clientSecret: envsConfig.GOOGLE_CLIENT_SECRET,
 
         callbackURL: "http://localhost:8080/api/sessions/google",
       },

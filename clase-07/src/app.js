@@ -5,6 +5,7 @@ import { Server } from "socket.io";
 import { connectMongoDB } from "./config/mongoDB.config.js";
 import { initializePassport } from "./config/passpot.config.js";
 import routes from "./routes/index.js";
+import envsConfig from "./config/envs.config.js";
 
 const app = express();
 
@@ -17,17 +18,17 @@ app.use(express.json());
 app.use(express.static("public"));
 app.use(
   session({
-    secret: "secret",
+    secret: envsConfig.SECRET_KEY,
     resave: true, // Mantiene la session activa, si esto est el false la session se cierra
     saveUninitialized: true, // Guarde la session
   })
 );
-app.use(cookieParser("secretKey"));
+app.use(cookieParser(envsConfig.SECRET_KEY));
 // Rutas de la api
 app.use("/api", routes);
 
-const httpServer = app.listen(8080, () => {
-  console.log("Servidor escuchando en el puerto 8080");
+const httpServer = app.listen(envsConfig.PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${envsConfig.PORT}`);
 });
 
 // Configuramos socket
