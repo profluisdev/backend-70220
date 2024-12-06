@@ -34,8 +34,9 @@ class CartService {
   }
 
   async updateQuantityProductInCart(cid, pid, quantity) {
+    const cart = await this.getCartById(cid);
     const index = cart.products.findIndex((element) => element.product == pid);
-    cart.products[index].product = quantity;
+    cart.products[index].quantity = quantity;
 
     return await cartDao.update(cid, cart);
   }
@@ -65,8 +66,8 @@ class CartService {
         products.push(productCart);
       }
 
-      await cartDao.update(id, { products });
     }
+    await cartDao.update(id, { products });
 
     return total;
   }

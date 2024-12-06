@@ -14,9 +14,9 @@ router.post("/:cid/product/:pid",passportCall('jwt'), authorization("user"), car
 
 router.post("/:cid/purchase",passportCall('jwt'), authorization("user"), cartController.purchaseCart);
 
-router.delete("/:cid/product/:pid", cartController.deleteProductToCart);
+router.delete("/:cid/product/:pid", passportCall('jwt'), authorization("user"), cartController.deleteProductToCart);
 
-router.put("/:cid/product/:pid", authorization("user"), cartController.updateQuantityProductInCart);
+router.put("/:cid/product/:pid", passportCall('jwt'), authorization("user"), cartController.updateQuantityProductInCart);
 
 router.delete("/:cid", authorization("admin"), cartController.clearProductsToCart);
 
